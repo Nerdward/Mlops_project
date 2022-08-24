@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+xgboost = "*"
+fastapi = "*"
+uvicorn = "*"
+pandas = "*"
+mlflow = "*"
+boto3 = "*"
+
+[dev-packages]
+requests = "*"
+scikit-learn = "*"
+
+[requires]
+python_version = "3.8"

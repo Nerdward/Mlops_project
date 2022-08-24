@@ -1,0 +1,1 @@
+mlflow server --backend-store-uri sqlite:///backend.db --default-artifact-root ./artifacts
