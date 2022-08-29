@@ -1,0 +1,36 @@
+artifact_path: model
+flavors:
+  python_function:
+    data: model.xgb
+    env: conda.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.9.12
+  xgboost:
+    code: null
+    data: model.xgb
+    model_class: xgboost.core.Booster
+    xgb_version: 1.6.1
+mlflow_version: 1.26.0
+model_uuid: df772656522141edbc072c6419757b9e
+run_id: 3d3baa9065634314ad797f09905d184a
+signature:
+  inputs: '[{"name": "MSSubClass", "type": "long"}, {"name": "LotFrontage", "type":
+    "double"}, {"name": "LotArea", "type": "long"}, {"name": "OverallQual", "type":
+    "long"}, {"name": "OverallCond", "type": "long"}, {"name": "YearBuilt", "type":
+    "long"}, {"name": "YearRemodAdd", "type": "long"}, {"name": "MasVnrArea", "type":
+    "double"}, {"name": "BsmtFinSF1", "type": "long"}, {"name": "BsmtFinSF2", "type":
+    "long"}, {"name": "BsmtUnfSF", "type": "long"}, {"name": "TotalBsmtSF", "type":
+    "long"}, {"name": "1stFlrSF", "type": "long"}, {"name": "2ndFlrSF", "type": "long"},
+    {"name": "LowQualFinSF", "type": "long"}, {"name": "GrLivArea", "type": "long"},
+    {"name": "BsmtFullBath", "type": "long"}, {"name": "BsmtHalfBath", "type": "long"},
+    {"name": "FullBath", "type": "long"}, {"name": "HalfBath", "type": "long"}, {"name":
+    "BedroomAbvGr", "type": "long"}, {"name": "KitchenAbvGr", "type": "long"}, {"name":
+    "TotRmsAbvGrd", "type": "long"}, {"name": "Fireplaces", "type": "long"}, {"name":
+    "GarageYrBlt", "type": "double"}, {"name": "GarageCars", "type": "long"}, {"name":
+    "GarageArea", "type": "long"}, {"name": "WoodDeckSF", "type": "long"}, {"name":
+    "OpenPorchSF", "type": "long"}, {"name": "EnclosedPorch", "type": "long"}, {"name":
+    "3SsnPorch", "type": "long"}, {"name": "ScreenPorch", "type": "long"}, {"name":
+    "PoolArea", "type": "long"}, {"name": "MiscVal", "type": "long"}, {"name": "MoSold",
+    "type": "long"}, {"name": "YrSold", "type": "long"}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float32", "shape": [-1]}}]'
+utc_time_created: '2022-08-18 10:35:58.440506'
