@@ -16,6 +16,10 @@ requests = "*"
 scikit-learn = "*"
 pytest = "*"
 numpy = "*"
+deepdiff = "*"
+pylint = "*"
+black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.8"
