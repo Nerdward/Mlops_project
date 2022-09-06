@@ -29,3 +29,8 @@ docker push ${REMOTE_IMAGE}
 aws ecr-public create-repository \
      --repository-name house-prediction \
      --region us-east-1
+
+isort .
+black .
+pylint --recursive .
+pytest tests/
