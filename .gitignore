@@ -2,6 +2,10 @@
 *.db
 artifacts
 
+# terraform
+.terraform
+*.lock.hcl
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
