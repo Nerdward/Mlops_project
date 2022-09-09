@@ -1,7 +1,0 @@
-services:
-  backend:
-    image: house-price-prediction:v1
-    ports:
-      - "8080:8080"
-    volumes:
-      - /home/azureuser/.aws:/root/.aws:ro

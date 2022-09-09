@@ -1,16 +1,11 @@
-FROM python:3.8.10-slim
+FROM public.ecr.aws/lambda/python:3.8-x86_64
 
 RUN pip install -U pip
 RUN pip install pipenv
-
-WORKDIR /code
-
-COPY [ "Pipfile", "Pipfile.lock",  "./"]
-COPY [ "model", "./model"]
-
-COPY [ "./app",  "./app"]
+COPY [ "Pipfile", "Pipfile.lock", "./" ]
 
 RUN pipenv install --system --deploy
-ENV PYTHONPATH "${PYTHONPATH}:/code/app"
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY [ "lambda_function.py", "./" ]
+
+CMD [ "lambda_function.lambda_handler" ]
