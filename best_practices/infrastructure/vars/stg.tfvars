@@ -1,4 +1,4 @@
-bucket_name = "stg_mflow_model"
+bucket_name = "stg-mflow-model"
 lambda_function_local_path = "../../deployment/lambda_function.py"
 docker_image_local_path = "../../deployment/Dockerfile"
 ecr_repo_name = "stg_house_prediction"

@@ -17,7 +17,7 @@ locals {
   account_id = data.aws_caller_identity.current_identity.account_id
 }
 
-module "artifacts_bucket" {
+module "s3_bucket" {
   source = "./modules/s3"
   bucket_name = "${var.bucket_name}-${var.project_id}"
 }
