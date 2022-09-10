@@ -55,3 +55,15 @@ module "lamdba_function" {
   image_uri = module.ecr_image.image_uri
   bucket_name = module.s3_bucket.s3
 }
+
+output "lambda_function" {
+  value = var.lambda_function_name
+}
+
+output "model_bucket" {
+  value = module.s3_bucket.s3
+}
+
+output "ecr_repo" {
+  value = "${var.ecr_repo_name}_${var.project_id}"
+}
