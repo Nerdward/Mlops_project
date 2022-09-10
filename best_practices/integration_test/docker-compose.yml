@@ -4,7 +4,5 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - AWS_ACCESS_KEY_ID=abc
-      - AWS_SECRET_ACCESS_KEY=xyz
+      - /home/azureuser/.aws:/root/.aws:ro
       - ./model:/app/model
-      - AWS_DEFAULT_REGION=us-east-1
