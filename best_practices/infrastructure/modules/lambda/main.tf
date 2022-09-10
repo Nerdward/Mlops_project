@@ -8,6 +8,12 @@ resource "aws_lambda_function" "lambda_function" {
     mode = "Active"
   }
 
+  environment {
+    variables = {
+      MODEL_BUCKET = var.bucket_name
+    }
+  }
+
   timeout = 180
 }
 

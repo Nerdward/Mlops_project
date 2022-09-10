@@ -1,8 +1,10 @@
+import os
+
 import mlflow
 import pandas as pd
 import xgboost as xgb
 
-MODEL_URI = "s3://nerdward-bucket/model/"
+# MODEL_URI = "s3://nerdward-bucket/model/"
 
 
 def feature_eng(data):
@@ -50,7 +52,8 @@ def feature_eng(data):
     return X
 
 
-def load_model(model_location):
+def load_model(model_bucket):
+    model_location = f"s3://{model_bucket}/model/"
     model = mlflow.xgboost.load_model(model_location)
 
     return model
@@ -66,7 +69,8 @@ def make_prediction(model, input_data):
 
 def lambda_handler(event, context):
     # house = event['house']
-    model = load_model(MODEL_URI)
+    MODEL_BUCKET = os.getenv("MODEL_BUCKET", "nerdward-bucket")
+    model = load_model(MODEL_BUCKET)
     pred = make_prediction(model, event)
 
     return {"house_price": pred.tolist()}
