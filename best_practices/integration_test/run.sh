@@ -13,7 +13,7 @@ fi
 
 docker-compose up -d
 
-sleep 1
+sleep 6
 
 pipenv run python test_docker.py
 
