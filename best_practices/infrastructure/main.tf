@@ -47,5 +47,5 @@ module "lamdba_function" {
   source = "./modules/lambda"
   lamdba_function_name = var.lambda_function_name
   image_uri = module.ecr_image.image_uri
-  bucket_name = var.bucket_name
+  bucket_name = module.s3_bucket.s3
 }

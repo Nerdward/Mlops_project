@@ -7,6 +7,7 @@ with open("input.json", "rt", encoding="utf-8") as f:
     house = json.load(f)
 
 url = "http://localhost:8080/2015-03-31/functions/function/invocations"
+
 response = requests.post(url, json=house)
 print("actual response: ")
 print(response.json())

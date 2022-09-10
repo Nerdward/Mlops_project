@@ -23,23 +23,41 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 resource "aws_iam_policy" "lambda_s3_role_policy" {
   name = "lambda_s3_policy"
   description = "IAM policy for s3"
-  policy = <<EOF
-  {
+
+policy = <<EOF
+{
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Stmt1662790104398",
-      "Action": [
-        "s3:GetBucketLocation",
-        "s3:GetObject",
-        "s3:ListAllMyBuckets"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.bucket_name}/*"
-    }
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListAllMyBuckets",
+                "s3:GetBucketLocation",
+                "s3:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::${var.bucket_name}",
+                "arn:aws:s3:::${var.bucket_name}/*"
+            ]
+        },
+        {
+          "Action": [
+            "autoscaling:Describe*",
+            "cloudwatch:*",
+            "logs:*",
+            "sns:*"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
+        }
   ]
 }
-EOF
+  EOF
 }
 
 resource "aws_iam_role_policy_attachment" "iam-policy-attach" {

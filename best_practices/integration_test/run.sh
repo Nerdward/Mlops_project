@@ -11,7 +11,6 @@ else
     echo "no need to build image ${LOCAL_IMAGE_NAME}"
 fi
 
-docker logout public.ecr.aws
 docker-compose up -d
 
 sleep 1
