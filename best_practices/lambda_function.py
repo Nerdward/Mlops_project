@@ -53,8 +53,12 @@ def feature_eng(data):
 
 
 def load_model(model_bucket):
-    model_location = f"s3://{model_bucket}/model/"
-    model = mlflow.xgboost.load_model(model_location)
+    MODEL_LOCATION = os.getenv("MODEL_LOCATION")
+    if MODEL_LOCATION:
+        model = mlflow.xgboost.load_model(MODEL_LOCATION)
+    else:
+        model_location = f"s3://{model_bucket}/model/"
+        model = mlflow.xgboost.load_model(model_location)
 
     return model
 
