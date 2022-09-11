@@ -1,0 +1,68 @@
+name: CD-Deploy
+on:
+  push:
+    branches:
+      - 'develop'
+#    paths:
+#      - '06-best-practices/code/**'
+
+jobs:
+  build-push-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      # Define the infrastructure
+      - name: TF plan
+        id: tf-plan
+        working-directory: 'best_practices/infrastructure'
+        run: |
+          terraform init -backend-config="key=mlops-zoomcamp-prod.tfstate" -reconfigure && terraform plan -var-file=vars/prod.tfvars
+      - name: TF Apply
+        id: tf-apply
+        working-directory: 'best_practices/infrastructure'
+        if: ${{ steps.tf-plan.outcome }} == 'success'
+        run: |
+          terraform apply -auto-approve -var-file=vars/prod.tfvars
+          echo "::set-output name=ecr_repo::$(terraform output ecr_repo | xargs)"
+          echo "::set-output name=model_bucket::$(terraform output model_bucket | xargs)"
+          echo "::set-output name=lambda_function::$(terraform output lambda_function | xargs)"
+      # Build-Push
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image-step
+        working-directory: "best_practices/infrastructure"
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ steps.tf-apply.outputs.ecr_repo }}
+          IMAGE_TAG: "latest"   # ${{ github.sha }}
+        run: |
+          docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image_uri::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      # Deploy
+      - name: Get model artifacts
+      # The steps here are not suited for production.
+      # In practice, retrieving the latest model version or RUN_ID from a service like MLflow or DVC can also be integrated into a CI/CD pipeline.
+      # But due to the limited scope of this workshop, we would be keeping things simple.
+      # In practice, you would also have a separate training pipeline to write new model artifacts to your Model Bucket in Prod.
+
+        id: get-model-artifacts
+        working-directory: "best_practices/"
+        env:
+          MODEL_BUCKET: ${{ steps.tf-apply.outputs.model_bucket }}
+        run: |
+          aws s3 cp --recursive model/ s3://${MODEL_BUCKET}/model/
