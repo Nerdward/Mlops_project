@@ -7,5 +7,7 @@ disable = [
   "invalid-name",
   "missing-timeout",
   "unused-argument",
-  "duplicate-code"
+  "duplicate-code",
+  "unused-variable",
+  "unused-import"
 ]
