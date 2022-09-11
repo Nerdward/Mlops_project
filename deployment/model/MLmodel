@@ -4,15 +4,15 @@ flavors:
     data: model.xgb
     env: conda.yaml
     loader_module: mlflow.xgboost
-    python_version: 3.9.12
+    python_version: 3.8.10
   xgboost:
     code: null
     data: model.xgb
     model_class: xgboost.core.Booster
-    xgb_version: 1.6.1
-mlflow_version: 1.26.0
-model_uuid: df772656522141edbc072c6419757b9e
-run_id: 3d3baa9065634314ad797f09905d184a
+    xgb_version: 1.6.2
+mlflow_version: 1.28.0
+model_uuid: ecf941a08f534dc8a9b01f8c2b2193c2
+run_id: a71ede6d699945429beff1d20d4eaefe
 signature:
   inputs: '[{"name": "MSSubClass", "type": "long"}, {"name": "LotFrontage", "type":
     "double"}, {"name": "LotArea", "type": "long"}, {"name": "OverallQual", "type":
@@ -33,4 +33,4 @@ signature:
     "PoolArea", "type": "long"}, {"name": "MiscVal", "type": "long"}, {"name": "MoSold",
     "type": "long"}, {"name": "YrSold", "type": "long"}]'
   outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float32", "shape": [-1]}}]'
-utc_time_created: '2022-08-18 10:35:58.440506'
+utc_time_created: '2022-09-11 08:51:38.512536'
