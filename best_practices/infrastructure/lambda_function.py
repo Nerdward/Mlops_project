@@ -1,3 +1,4 @@
+import json
 import os
 
 import mlflow
@@ -53,12 +54,8 @@ def feature_eng(data):
 
 
 def load_model(model_bucket):
-    MODEL_LOCATION = os.getenv("MODEL_LOCATION")
-    if MODEL_LOCATION:
-        model = mlflow.xgboost.load_model(MODEL_LOCATION)
-    else:
-        model_location = f"s3://{model_bucket}/model/"
-        model = mlflow.xgboost.load_model(model_location)
+    model_location = f"s3://{model_bucket}/model/"
+    model = mlflow.xgboost.load_model(model_location)
 
     return model
 
@@ -72,11 +69,11 @@ def make_prediction(model, input_data):
 
 
 def lambda_handler(event, context):
-    # print(event)
-    # event = json.loads(event["body"])
+    print(event)
+    event = json.loads(event["body"])
     # house = event['house']
     MODEL_BUCKET = os.getenv("MODEL_BUCKET", "nerdward-bucket")
     model = load_model(MODEL_BUCKET)
     pred = make_prediction(model, event)
 
-    return {"house_price": pred.tolist()}
+    return {"isBase64Encoded": False, "statusCode": 200, "body": f"{pred.tolist()}"}

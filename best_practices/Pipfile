@@ -8,10 +8,9 @@ xgboost = "*"
 pandas = "*"
 mlflow = "*"
 boto3 = "*"
-
+deepdiff = "*"
 
 [dev-packages]
-deepdiff = "*"
 requests = "*"
 scikit-learn = "*"
 pytest = "*"

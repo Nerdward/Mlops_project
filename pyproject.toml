@@ -6,5 +6,6 @@ disable = [
   "missing-function-docstring",
   "invalid-name",
   "missing-timeout",
-  "unused-argument"
+  "unused-argument",
+  "duplicate-code"
 ]

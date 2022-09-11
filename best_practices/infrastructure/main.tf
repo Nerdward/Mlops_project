@@ -1,4 +1,10 @@
 terraform {
+  backend "s3" {
+    bucket = "nerdward-bucket"
+    key = "mlops-zoomcamp-stg.tfstate"
+    region = "us-east-1"
+    encrypt = true
+  }
   required_providers {
     aws = {
       source = "hashicorp/aws"
@@ -48,4 +54,16 @@ module "lamdba_function" {
   lamdba_function_name = var.lambda_function_name
   image_uri = module.ecr_image.image_uri
   bucket_name = module.s3_bucket.s3
+}
+
+output "lambda_function" {
+  value = var.lambda_function_name
+}
+
+output "model_bucket" {
+  value = module.s3_bucket.s3
+}
+
+output "ecr_repo" {
+  value = "${var.ecr_repo_name}_${var.project_id}"
 }
