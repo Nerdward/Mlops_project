@@ -4,16 +4,23 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+xgboost = "*"
 pandas = "*"
 mlflow = "*"
 boto3 = "*"
-xgboost = "*"
+deepdiff = "*"
 
 [dev-packages]
 requests = "*"
 scikit-learn = "*"
+pytest = "*"
+numpy = "*"
+black = "*"
+isort = "*"
+pre-commit = "*"
 fastapi = "*"
 uvicorn = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.8"

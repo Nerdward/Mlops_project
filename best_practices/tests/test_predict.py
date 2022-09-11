@@ -1,6 +1,7 @@
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-
 import predict
 
 house = {
@@ -93,8 +94,9 @@ def test_feature_eng():
 
 
 def test_make_prediction():
+    test_directory = Path(__file__).parent
     df = predict.feature_eng(house)
-    model = predict.load_model("/home/azureuser/Mlops_project/best_practices/model")
+    model = predict.load_model(f"{test_directory}/model")
     pred = predict.make_prediction(model, df)
 
     assert isinstance(pred, np.ndarray)
